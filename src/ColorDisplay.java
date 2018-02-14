@@ -14,14 +14,19 @@ public class ColorDisplay extends JPanel {
 		super.paint(g);
 		int height = getHeight();
 		int width = getWidth();
+		
+		palette = PalletteMaker.makePallet(10);
+
+		//g.fillRect(0, 0, width, height);
 		int portion = height;
 
-		palette = new Palette((int) (Math.random() * 2 + 8));
-		System.out.println(palette.size);
-
-		for (int y = 0; y < palette.size; y++) {
-			g.setColor(palette.getColor(y));
-			g.fillRect(0, 0, width, (int) (height / ((y + 1) / 2.0f)));
+		g.setColor(palette.getBasicColor(0));
+		//g.fillRect(0, 0, width, (int) (height / ((y + 1) / 2.0f)));
+		for (int y = palette.size; y > 0; y--) {
+			int h = (int) Math.round(height / palette.size);
+			g.setColor(palette.getBasicColor(y));
+			g.fillRect(0, height - ((y + 1) * h), width, h);
+			//g.fillRect(0, 0, width, height);
 		}
 	}
 
