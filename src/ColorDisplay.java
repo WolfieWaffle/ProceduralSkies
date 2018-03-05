@@ -1,49 +1,57 @@
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.util.Collections;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class ColorDisplay extends JPanel {
-
 	private static final long serialVersionUID = 1L;
+	private Game game = new Game();
+	static JFrame frame = new JFrame();
+	static ColorDisplay panel = new ColorDisplay();
+	boolean gameRunning = true;
+	int fps;
 
-	Palette palette;// = new Palette(7);
-
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		int height = getHeight();
-		int width = getWidth();
-		
-		palette = PalletteMaker.makePallet(10);
-
-		//g.fillRect(0, 0, width, height);
-		int portion = height;
-
-		g.setColor(palette.getBasicColor(0));
-		//g.fillRect(0, 0, width, (int) (height / ((y + 1) / 2.0f)));
-		for (int y = palette.size; y > 0; y--) {
-			int h = (int) Math.round(height / palette.size);
-			g.setColor(palette.getBasicColor(y));
-			g.fillRect(0, height - ((y + 1) * h), width, h);
-			//g.fillRect(0, 0, width, height);
-		}
+	public void init() {
+		frame.setContentPane(panel);
+		frame.setSize(800, 800);
+		frame.setPreferredSize(new Dimension(800, 800));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		gameLoop();
 	}
 
-	/*@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		int height = 50;
-		for (int y = 0; y < 10; y++) {
-			palette = new Palette(7);
-			
-			for (int i = 0; i < palette.size; i++) {
-				g.setColor(palette.getColor(i));
-				System.out.println(palette.getColor(i));
-				g.fillRect(height * i, y * height, height, height);
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		game.paint(getWidth(), getHeight(), g);
+	}
+
+	public void gameLoop() {
+		long lastLoopTime = System.nanoTime();
+		final int TARGET_FPS = 60;
+		final long OPTIMAL_TIME = 1000000000 / TARGET_FPS;
+
+		// keep looping round til the game ends
+		double t = 0.0;
+		double dt = 1 / 60.0;
+
+		double currentTime = System.nanoTime();
+
+		while (gameRunning) {
+			double newTime = System.nanoTime();
+			double frameTime = newTime - currentTime;
+			currentTime = newTime;
+
+			while (frameTime > 0.0) {
+				float deltaTime = (float) Math.min(frameTime, dt);
+				game.update(deltaTime);
+				frameTime -= deltaTime;
+				t += deltaTime;
 			}
+
+			repaint();
 		}
-		
-	}*/
+	}
 
 }

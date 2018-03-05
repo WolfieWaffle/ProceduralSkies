@@ -11,14 +11,14 @@ public class Gradient {
 		}
 	}
 
-	public Ramp interpolate(int size) {
-		ArrayList<Color> colors = new ArrayList<>();
-
-		for (GradientPoint point : points) {
-			colors.add(Math.round(size / point.percent), point.color);
-		}
-
-		return new Ramp(colors);
-	}
+//	public Ramp interpolate(int size) {
+//		ArrayList<Color> colors = new ArrayList<>();
+//
+//		for (GradientPoint point : points) {
+//			colors.add(Math.round(size / point.percent), point.color);
+//		}
+//
+//		return new Ramp(colors);
+//	}
 
 }

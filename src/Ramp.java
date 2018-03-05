@@ -6,17 +6,17 @@ public class Ramp {
 	private Color[] vals;
 	public int size;
 
-	public Ramp(ArrayList<Color> colors) {
-		this.vals = new Color[colors.size()];
-		this.size = colors.size();
-		for (int i = 0; i < colors.size(); i++) {
-			vals[i] = colors.get(i);
-		}
-	}
-
-	public Ramp(int size) {
-		this(new ArrayList<Color>(size));
-	}
+//	public Ramp(Color startingColor, Color endingColor) {
+//		this.vals = new Color[colors.size()];
+//		this.size = colors.size();
+//		for (int i = 0; i < colors.size(); i++) {
+//			vals[i] = colors.get(i);
+//		}
+//	}
+//
+//	public Ramp(int size) {
+//		this(new ArrayList<Color>(size));
+//	}
 
 	/*
 	 * public static Ramp add(Ramp ramp1, Ramp ramp2) { assert ramp1.size ==
